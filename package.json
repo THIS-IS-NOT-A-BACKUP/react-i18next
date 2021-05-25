@@ -1,6 +1,6 @@
 {
   "name": "react-i18next",
-  "version": "11.8.15",
+  "version": "11.9.0",
   "description": "Internationalization for react done right. Using the i18next i18n ecosystem.",
   "main": "dist/commonjs/index.js",
   "types": "./index.d.ts",
@@ -48,7 +48,6 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/react-hooks": "^3.4.2",
-    "@types/react": "^16.8.2",
     "all-contributors-cli": "^6.1.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
