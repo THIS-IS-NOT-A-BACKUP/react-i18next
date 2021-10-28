@@ -1,3 +1,8 @@
+### 11.13.0
+
+- feat(types): add type-safe support to keyPrefix option [1390](https://github.com/i18next/react-i18next/pull/1390)
+- feat(types): allow key separator augmentation [1367](https://github.com/i18next/react-i18next/pull/1367)
+
 ### 11.12.0
 
 - feature: add key prefix support to useTranslation hook [1371](https://github.com/i18next/react-i18next/pull/1371)
