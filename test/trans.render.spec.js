@@ -643,3 +643,62 @@ describe('trans should allow escaped html', () => {
     `);
   });
 });
+
+it('transSupportBasicHtmlNodes: false should not keep the name of simple nodes', () => {
+  const cloneInst = i18n.cloneInstance({
+    react: { transSupportBasicHtmlNodes: false, defaultTransParent: 'div' },
+  });
+
+  const TestComponent = () => (
+    <Trans i18n={cloneInst}>
+      <p>Plain paragraph</p>
+      <p>
+        Paragraph with <em>hack</em>
+      </p>
+      <p className="hack">Paragraph with hack</p>
+    </Trans>
+  );
+
+  const { container } = render(<TestComponent />);
+  expect(container.firstChild).toMatchInlineSnapshot(`
+    <div>
+      <p>
+        Plain paragraph
+      </p>
+      <p>
+        Paragraph with 
+        <em>
+          hack
+        </em>
+      </p>
+      <p
+        class="hack"
+      >
+        Paragraph with hack
+      </p>
+    </div>
+  `);
+});
+
+describe('trans with context property', () => {
+  const TestComponent = ({ parent }) => (
+    <Trans i18nKey="testTransWithCtx" context="home" parent={parent}>
+      Open <Link to="/msgs">here</Link>.
+    </Trans>
+  );
+
+  it('should render correct content', () => {
+    const { container } = render(<TestComponent />);
+    expect(container.firstChild).toMatchInlineSnapshot(`
+      <div>
+        Go 
+        <a
+          href="/msgs"
+        >
+          home
+        </a>
+        .
+      </div>
+    `);
+  });
+});

@@ -38,7 +38,10 @@ export function nodesToString(children, i18nOptions) {
 
   // do not use `React.Children.toArray`, will fail at object children
   const childrenArray = getAsArray(children);
-  const keepArray = i18nOptions.transKeepBasicHtmlNodesFor || [];
+  const keepArray =
+    i18nOptions.transSupportBasicHtmlNodes && i18nOptions.transKeepBasicHtmlNodesFor
+      ? i18nOptions.transKeepBasicHtmlNodesFor
+      : [];
 
   // e.g. lorem <br/> ipsum {{ messageCount, format }} dolor <strong>bold</strong> amet
   childrenArray.forEach((child, childIndex) => {
@@ -274,6 +277,7 @@ export function Trans({
   count,
   parent,
   i18nKey,
+  context,
   tOptions = {},
   values,
   defaults,
@@ -293,6 +297,8 @@ export function Trans({
   }
 
   const t = tFromProps || i18n.t.bind(i18n) || ((k) => k);
+
+  if (context) tOptions.context = context;
 
   const reactI18nextOptions = { ...getDefaults(), ...(i18n.options && i18n.options.react) };
 

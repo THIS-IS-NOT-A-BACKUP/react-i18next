@@ -1,3 +1,12 @@
+### 11.16.1
+
+- types: for context prop of Trans component
+
+### 11.16.0
+
+- fix: transSupportBasicHtmlNodes for keepArray check [1470](https://github.com/i18next/react-i18next/pull/1470)
+- feat: add context prop to Trans component [1464](https://github.com/i18next/react-i18next/issues/1464)
+
 ### 11.15.7
 
 - types: add nsSeparator to CustomTypeOptions [1471](https://github.com/i18next/react-i18next/pull/1471)
