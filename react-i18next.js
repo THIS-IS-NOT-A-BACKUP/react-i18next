@@ -807,11 +807,7 @@
         defaultNSFromContext = _ref2.defaultNS;
 
     var i18n = i18nFromProps || i18nFromContext || getI18n();
-
-    var t = tFromProps || i18n.t.bind(i18n) || function (k) {
-      return k;
-    };
-
+    var t = tFromProps || i18n && i18n.t.bind(i18n);
     return Trans(_objectSpread2({
       children: children,
       count: count,
@@ -822,7 +818,7 @@
       values: values,
       defaults: defaults,
       components: components,
-      ns: ns || t.ns || defaultNSFromContext || i18n.options && i18n.options.defaultNS,
+      ns: ns || t && t.ns || defaultNSFromContext || i18n && i18n.options && i18n.options.defaultNS,
       i18n: i18n,
       t: tFromProps,
       shouldUnescape: shouldUnescape
