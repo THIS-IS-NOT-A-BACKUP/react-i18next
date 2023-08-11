@@ -14,7 +14,7 @@ function hasChildren(node, checkLength) {
 function getChildren(node) {
   if (!node) return [];
   const children = node.props ? node.props.children : node.children;
-  return node.props?.i18nIsDynamicList ? getAsArray(children) : children;
+  return node.props && node.props.i18nIsDynamicList ? getAsArray(children) : children;
 }
 
 function hasValidReactChildren(children) {
@@ -139,7 +139,12 @@ function renderNodes(children, targetString, i18n, i18nOptions, combinedTOpts, s
   function renderInner(child, node, rootReactNode) {
     const childs = getChildren(child);
     const mappedChildren = mapAST(childs, node.children, rootReactNode);
-    return hasValidReactChildren(childs) && mappedChildren.length === 0 ? childs : mappedChildren;
+    // `mappedChildren` will always be empty if using the `i18nIsDynamicList` prop,
+    // but the children might not necessarily be react components
+    return (hasValidReactChildren(childs) && mappedChildren.length === 0) ||
+      (child.props && child.props.i18nIsDynamicList)
+      ? childs
+      : mappedChildren;
   }
 
   function pushTranslatedJSX(child, inner, mem, i, isVoid) {
@@ -176,10 +181,10 @@ function renderNodes(children, targetString, i18n, i18nOptions, combinedTOpts, s
         let tmp = reactNodes[parseInt(node.name, 10)];
 
         // trans components is an object
-        if (rootReactNode.length === 1) tmp ||= rootReactNode[0][node.name];
+        if (rootReactNode.length === 1 && !tmp) tmp = rootReactNode[0][node.name];
 
         // neither
-        tmp ||= {};
+        if (!tmp) tmp = {};
 
         const child =
           Object.keys(node.attrs).length !== 0 ? mergeProps({ props: node.attrs }, tmp) : tmp;
