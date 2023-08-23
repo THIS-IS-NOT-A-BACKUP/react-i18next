@@ -328,13 +328,13 @@ export function Trans({
   let namespaces = ns || t.ns || (i18n.options && i18n.options.defaultNS);
   namespaces = typeof namespaces === 'string' ? [namespaces] : namespaces || ['translation'];
 
+  const nodeAsString = nodesToString(children, reactI18nextOptions);
   const defaultValue =
-    defaults ||
-    nodesToString(children, reactI18nextOptions) ||
-    reactI18nextOptions.transEmptyNodeValue ||
-    i18nKey;
+    defaults || nodeAsString || reactI18nextOptions.transEmptyNodeValue || i18nKey;
   const { hashTransKey } = reactI18nextOptions;
-  const key = i18nKey || (hashTransKey ? hashTransKey(defaultValue) : defaultValue);
+  const key =
+    i18nKey ||
+    (hashTransKey ? hashTransKey(nodeAsString || defaultValue) : nodeAsString || defaultValue);
   const interpolationOverride = values
     ? tOptions.interpolation
     : { interpolation: { ...tOptions.interpolation, prefix: '#$?', suffix: '?$#' } };
