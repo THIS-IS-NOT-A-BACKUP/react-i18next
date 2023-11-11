@@ -10,10 +10,9 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": { "react-i18next": ["./"] },
-
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./index.d.ts", "./@types/**/*", "./icu.macro.d.ts", "./test/**/*"],
+  "include": ["./index.d.mts", "./@types/**/*", "./icu.macro.d.mts", "./test/**/*"],
   "exclude": ["test/typescript/nonEsModuleInterop/**/*.ts", "test/typescript/custom-types"]
 }
